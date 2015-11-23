@@ -1,0 +1,3 @@
+language: crystal
+script:
+  - crystal make.cr -- -d
