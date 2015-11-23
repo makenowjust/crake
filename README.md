@@ -2,6 +2,8 @@
 
 A __CRystal mAKE__ library.
 
+[![](https://img.shields.io/travis/MakeNowJust/crake.svg?style=flat-square)](https://travis-ci.org/MakeNowJust/crake)
+[![docrystal.org](https://img.shields.io/badge/docrystal-ref-866BA6.svg?style=flat-square)](http://docrystal.org/github.com/MakeNowJust/crake)
 
 ## Just a Library
 
