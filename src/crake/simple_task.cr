@@ -1,5 +1,7 @@
+require "./task"
+
 # A simple task for CRake.
-class CRake::SimpleTask
+class CRake::SimpleTask < CRake::Task
   # Generic task methods.
   module Mixin(I)
     # Properties {{{

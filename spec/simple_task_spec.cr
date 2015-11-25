@@ -1,5 +1,5 @@
 require "spec"
-require "../src/crake/task"
+require "../src/crake/simple_task"
 
 action = ->(i : CRake::SimpleTask::Info){ "action" }
 

@@ -1,7 +1,8 @@
 require "./simple_task"
+require "./task"
 
 # A file task for CRake.
-class CRake::FileTask
+class CRake::FileTask < CRake::Task
   # Generic file task methods.
   module Mixin
     # Methods as task {{{

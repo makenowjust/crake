@@ -18,7 +18,7 @@ class CRake::Namespace
 
       # Adds a {{ type }}.
       def add_{{ type }}({{ type }})
-        @{{ type }}s[{{ type }}.target] = {{ type }}
+        @{{ type }}s[{{ type }}.target] = {{ type }} as {{ type.camelcase }}
       end
     {% end %}
 

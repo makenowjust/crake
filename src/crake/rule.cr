@@ -53,7 +53,7 @@ class CRake::Rule
   # }}}
 
   # A task created by the rule.
-  class Task
+  class Task < CRake::Task
     include SimpleTask::Mixin(Info)
     include FileTask::Mixin
 

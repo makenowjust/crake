@@ -11,7 +11,11 @@ class CRake::Manager
   # Internal types {{{
 
   # :nodoc:
-  record TopLevelTask, deps do
+  class TopLevelTask < Task
+    def initialize(@deps); end
+
+    getter deps
+
     def name
       "##toplevel##"
     end
@@ -24,8 +28,13 @@ class CRake::Manager
   end
 
   # :nodoc:
-  record FallbackFileTask, name do
+  class FallbackFileTask < Task
     include FileTask::Mixin
+
+    def initialize(@name); end
+
+    getter name
+
 
     def deps
       [] of String
