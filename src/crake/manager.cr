@@ -105,6 +105,9 @@ class CRake::Manager
     fatal "#{target.inspect} is not defined"
   end
 
+  # :nodoc:
+  alias TimestampGetter = -> Time
+
   # Resolves dependepcies by topological sort with DFS.
   private def resolve_deps(target,
                            namespace = self,
@@ -121,7 +124,7 @@ class CRake::Manager
 
           # Resolves dependencies
 
-          ts_and_chans = [] of {(-> Time), Channel::Buffered(Exception?)}
+          ts_and_chans = [] of {TimestampGetter, Channel::Buffered(Exception?)}
 
           target.deps.each do |dep|
             if circular_check.includes? dep
@@ -134,7 +137,7 @@ class CRake::Manager
               deps_set.add dep
               circular_check.add dep
               ts_and_chans << {
-                ->(){ dep_task.timestamp },
+                TimestampGetter.new{ dep_task.timestamp },
                 resolve_deps dep_task, namespace, deps_set, circular_check.dup
               }
               circular_check.delete dep
