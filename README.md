@@ -76,6 +76,7 @@ $ crystal make.cr -- spec
 ## TODO
 
   - [x] Add `task`, `rule`, `file` and `namespace`.
+  - [ ] Add `FileList` and utilities.
   - [x] Support concurrent build (default.)
   - [x] Support colored output (default.)
   - [ ] Write more documents.
