@@ -124,6 +124,8 @@ class CRake::Manager
                            circular_check = Set(String).new) : Channel::Buffered(Exception?)
     Channel(Exception?).new(1).tap do |chan|
       real_proc = -> do
+        ts_and_chans = [] of {TimestampGetter, Channel::Buffered(Exception?)}
+
         begin
           full_name = namespace.resolve_name target
 
@@ -132,8 +134,6 @@ class CRake::Manager
           debug "#{full_name.inspect}'s dependencies are #{target.deps}"
 
           # Resolves dependencies
-
-          ts_and_chans = [] of {TimestampGetter, Channel::Buffered(Exception?)}
 
           target.deps.each do |dep|
             if circular_check.includes? dep
@@ -153,12 +153,12 @@ class CRake::Manager
             end
           end
 
-          # Waits for all tasks
+          # Waits all tasks
 
           times = [] of Time
 
-          ts_and_chans.each do |ts_and_chan|
-            ts, dep_chan = ts_and_chan
+          until ts_and_chans.empty?
+            ts, dep_chan = ts_and_chans.shift
             if err = dep_chan.receive
               raise err
             end
@@ -185,6 +185,15 @@ class CRake::Manager
           chan.close
 
         rescue err
+          # Waits all tasks if it detected an error
+
+          until ts_and_chans.empty?
+            ts, dep_chan = ts_and_chans.shift
+            dep_chan.receive # TODO: Not ignore this errors
+          end
+
+          # Re-send an error
+
           chan.send err
           chan.close
         end

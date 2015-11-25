@@ -155,4 +155,24 @@ describe CRake::Manager do
     end
     (s1 =~ /##ns##/).should be_truthy
   end
+
+  it "should wait tasks" do
+    s1 = manager do |m|
+      task1 = CRake::SimpleTask.new "task1", "desc", %w(), ->(i : CRake::SimpleTask::Info) do
+        raise "##error##"
+      end
+      task2 = CRake::SimpleTask.new "task2", "desc", %w(), ->(i : CRake::SimpleTask::Info) do
+        sleep 0
+        i.manager.error "##task2##"
+      end
+
+      m.add_task task1
+      m.add_task task2
+
+      expect_raises Exception, "##error##" do
+        m.run "task1", "task2"
+      end
+    end
+    (s1 =~ /##task2##/).should be_truthy
+  end
 end
