@@ -25,12 +25,10 @@ class CRake::Manager
 
   # :nodoc:
   record FallbackFileTask, name do
+    include FileTask::Mixin
+
     def deps
       [] of String
-    end
-
-    def timestamp
-      @timestamp ||= File.lstat(name).mtime
     end
 
     def run(manager); end
