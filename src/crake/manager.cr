@@ -156,14 +156,18 @@ class CRake::Manager
           # Waits all tasks
 
           times = [] of Time
+          err = nil
 
           until ts_and_chans.empty?
             ts, dep_chan = ts_and_chans.shift
-            if err = dep_chan.receive
-              raise err
+            if err2 = dep_chan.receive
+              # TODO: Not ignore second and any later errors.
+              err = err2 unless err
             end
             times << ts.call
           end
+
+          raise err if err
 
           # Checks timestamps
 
@@ -185,15 +189,7 @@ class CRake::Manager
           chan.close
 
         rescue err
-          # Waits all tasks if it detected an error
-
-          until ts_and_chans.empty?
-            ts, dep_chan = ts_and_chans.shift
-            dep_chan.receive # TODO: Not ignore this errors
-          end
-
           # Re-send an error
-
           chan.send err
           chan.close
         end
