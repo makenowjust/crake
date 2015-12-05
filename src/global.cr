@@ -2,7 +2,7 @@
 # It exports `CRake::Scope` methods to global scope and redefine
 # `main` function.
 
-require "./dsl"
-require "./main"
+require "./crake/dsl"
+require "./crake/main"
 
 include CRake::DSL
