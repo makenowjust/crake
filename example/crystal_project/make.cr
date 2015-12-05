@@ -1,4 +1,4 @@
-require "../../src/crake/global"
+require "crake/global"
 
 task "default", %w(run)
 

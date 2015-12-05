@@ -1,4 +1,4 @@
-require "./src/crake/global"
+require "./src/global"
 
 task "default # run specs and examples", %w(spec example)
 
@@ -26,6 +26,7 @@ task "example # run examples", deps: example_files
 
 namespace :example do
   rule /.*/ do |i|
+    sh "cd example/#{i.target} && shards install"
     sh "cd example/#{i.target} && crystal make.cr -- clean && crystal make.cr"
   end
 end

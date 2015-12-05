@@ -1,6 +1,3 @@
-bin/hello
-*.o
-
 libs/
 .shards/
 shard.lock

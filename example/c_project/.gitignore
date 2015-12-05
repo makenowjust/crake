@@ -1,2 +1,6 @@
 *.o
 hello
+
+libs/
+.shards/
+shard.lock
