@@ -8,7 +8,7 @@ module CRake
   # Runs CRake.
   #
   # It parses ARGV and runs tasks, so it should be called at the end of the script.
-  def self.run(args = ARGV)
+  def self.run(args = ARGV.dup)
     OptionParser.parse(args) do |p|
         p.banner = "crystal make.cr -- [option] [task]..."
 
