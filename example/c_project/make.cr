@@ -1,3 +1,5 @@
+#!/usr/bin/env crystal
+
 require "crake/global"
 
 CC = ENV.fetch "CC", "gcc"

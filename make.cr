@@ -1,3 +1,5 @@
+#!/usr/bin/env crystal
+
 require "./src/global"
 
 task "default # run specs and examples", %w(spec example)
@@ -26,8 +28,8 @@ task "example # run examples", deps: example_files
 
 namespace :example do
   rule /.*/ do |i|
-    sh "cd example/#{i.target} && shards install"
-    sh "cd example/#{i.target} && crystal make.cr -- clean && crystal make.cr"
+    sh "cd example/#{i.target} && rm -f shard.lock && shards install"
+    sh "cd example/#{i.target} && crystal make -- clean && crystal make"
   end
 end
 # }}}

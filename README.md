@@ -48,14 +48,15 @@ end
 then you can run:
 
 ```console
-$ crystal make.cr -- hello
+$ ln -s ./make.cr ./make
+$ crystal make -- hello
 Hello, CRake World!
 ```
 
 If you want more information, you can run such a command:
 
 ```console
-$ crystal make.cr -- hello -v
+$ crystal make -- hello -v
  INFO   (2015-11-20 12:34:20 +0000) ~~> "##toplevel##" starts
  INFO   (2015-11-20 12:34:20 +0000) ~~> "hello" starts
 Hello, CRake World!
@@ -69,7 +70,7 @@ and you can see `example/` directory.
 ## Development
 
 ```console
-$ crystal make.cr -- spec
+$ crystal make -- spec
 ```
 
 

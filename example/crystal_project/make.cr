@@ -1,3 +1,5 @@
+#!/usr/bin/env crystal
+
 require "crake/global"
 
 task "default", %w(run)
