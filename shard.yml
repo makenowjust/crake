@@ -4,4 +4,7 @@ version: 1.0.1
 authors:
   - TSUYUSATO Kitsune <make.just.on@gmail.com>
 
+description: |
+  A CRystal mAKE library.
+
 license: MIT
