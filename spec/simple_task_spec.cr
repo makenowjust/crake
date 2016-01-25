@@ -1,11 +1,11 @@
 require "spec"
 require "../src/crake/simple_task"
 
-action = ->(i : CRake::SimpleTask::Info){ "action" }
+$action = ->(i : CRake::SimpleTask::Info){ "action" }
 
 describe CRake::SimpleTask do
   it "should create a new instance" do
-    task = CRake::SimpleTask.new "name", "desc", ["deps"], action
+    task = CRake::SimpleTask.new "name", "desc", ["deps"], $action
     task.should be_a CRake::SimpleTask
     task.name.should eq "name"
     task.target.should eq "name"
@@ -14,18 +14,18 @@ describe CRake::SimpleTask do
   end
 
   it "should return its timestamp" do
-    task = CRake::SimpleTask.new "name", "desc", ["deps"], action
+    task = CRake::SimpleTask.new "name", "desc", ["deps"], $action
     (task.timestamp >= Time.now).should be_true
   end
 
   it "should return its simple description" do
     desc = "x" * 55
-    task = CRake::SimpleTask.new "name", desc, ["deps"], action
+    task = CRake::SimpleTask.new "name", desc, ["deps"], $action
     task.desc.should eq desc
     task.simple_desc.should eq "#{"x" * 47}..."
     desc = "#{"x" * 30}\n#{"x" * 30}"
-    task = CRake::SimpleTask.new "name", desc, ["deps"], action
-    task.desc.should eq desc
+    task = CRake::SimpleTask.new "name", desc, ["deps"], $action
+   task.desc.should eq desc
     task.simple_desc.should eq "#{"x" * 30}"
   end
 

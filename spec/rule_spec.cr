@@ -1,17 +1,17 @@
 require "spec"
 require "../src/crake/rule"
 
-action = ->(i : CRake::Rule::Task::Info){ "action" }
+$action = ->(i : CRake::Rule::Task::Info){ "action" }
 
 describe CRake::Rule do
   it "should create a new instance" do
-    rule = CRake::Rule.new /rule/, ["deps"], action
+    rule = CRake::Rule.new /rule/, ["deps"], $action
     rule.should be_a CRake::Rule
     rule.pattern.should eq /rule/
   end
 
   it "should create a new task" do
-    rule = CRake::Rule.new /rule/, ["deps"], action
+    rule = CRake::Rule.new /rule/, ["deps"], $action
     rule.create_task("not match").should be_nil
     task = rule.create_task("rule").not_nil!
     task.should be_a CRake::Rule::Task
@@ -21,7 +21,7 @@ describe CRake::Rule do
     task.deps.should eq ["deps"]
     task.match[0].should eq "rule"
 
-    rule = CRake::Rule.new /rule/, ["deps", ->(s : String){ [s, s] }, {"task"}], action
+    rule = CRake::Rule.new /rule/, ["deps", ->(s : String){ [s, s] }, {"task"}], $action
     task = rule.create_task("rule").not_nil!
     task.should be_a CRake::Rule::Task
     task.deps.should eq ["deps", "rule", "rule", "task"]

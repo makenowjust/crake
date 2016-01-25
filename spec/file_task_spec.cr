@@ -1,11 +1,11 @@
 require "spec"
 require "../src/crake/file_task"
 
-action = ->(i : CRake::FileTask::Info){ "action" }
+$action = ->(i : CRake::FileTask::Info){ "action" }
 
 describe CRake::FileTask do
   it "should create a new instance" do
-    task = CRake::FileTask.new "name", ["deps"], action
+    task = CRake::FileTask.new "name", ["deps"], $action
     task.should be_a CRake::FileTask
     task.name.should eq "name"
     task.target.should eq "name"
@@ -13,11 +13,11 @@ describe CRake::FileTask do
   end
 
   it "should return its timestamp" do
-    task = CRake::FileTask.new "not found", ["deps"], action
+    task = CRake::FileTask.new "not found", ["deps"], $action
     (task.timestamp <= Time.now).should be_true
 
     name = "#{__DIR__}/file/test"
-    task = CRake::FileTask.new name, ["deps"], action
+    task = CRake::FileTask.new name, ["deps"], $action
     task.timestamp.should eq File.lstat(name).mtime
   end
 
