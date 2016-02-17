@@ -32,7 +32,7 @@ describe CRake::SimpleTask do
   it "should run its action" do
     dummy = "dummy"
     not_run = true
-    task :: CRake::SimpleTask
+    task = nil
     task = CRake::SimpleTask.new "name", "desc", ["deps"], ->(i : CRake::SimpleTask::Info) do
       i.task.should be task
       i.name.should eq "name"
@@ -43,7 +43,7 @@ describe CRake::SimpleTask do
       i.manager.should be dummy
       not_run = false
     end
-    task.run dummy
+    task.not_nil!.run dummy
     if not_run
       fail "not run its action"
     end

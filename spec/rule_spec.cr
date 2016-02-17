@@ -30,8 +30,7 @@ describe CRake::Rule do
   it "should run its action by created task" do
     dummy = "dummy"
     not_run = true
-    rule :: CRake::Rule
-    task :: CRake::Rule::Task
+    rule = task = nil
     rule = CRake::Rule.new /rule/, ["deps"], ->(i : CRake::Rule::Task::Info) do
       i.rule.should be rule
       i.task.should be task
@@ -43,8 +42,8 @@ describe CRake::Rule do
       i.manager.should be dummy
       not_run = false
     end
-    task = rule.create_task("rule").not_nil!
-    task.run dummy
+    task = rule.not_nil!.create_task("rule")
+    task.not_nil!.run dummy
     if not_run
       fail "not run its action"
     end

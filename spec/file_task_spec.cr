@@ -24,7 +24,7 @@ describe CRake::FileTask do
   it "should run its action" do
     dummy = "dummy"
     not_run = true
-    task :: CRake::FileTask
+    task = nil
     task = CRake::FileTask.new "name", ["deps"], ->(i : CRake::FileTask::Info) do
       i.task.should be task
       i.name.should eq "name"
@@ -33,7 +33,7 @@ describe CRake::FileTask do
       i.manager.should be dummy
       not_run = false
     end
-    task.run dummy
+    task.not_nil!.run dummy
     if not_run
       fail "not run its action"
     end
