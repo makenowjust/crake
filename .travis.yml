@@ -1,5 +1,3 @@
 language: crystal
-crystal:
-  - "0.15.0"
 script:
   - crystal make.cr -- -d
